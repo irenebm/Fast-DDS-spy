@@ -19,7 +19,7 @@
 find_package(PythonInterp 3 REQUIRED)
 
 # Name of files to test
-set(TEST_LIST_DDS
+set(TEST_LIST
     # one_shot_help_dds
     one_shot_datareader_dds
     one_shot_datareader_guid_dds
@@ -41,9 +41,6 @@ set(TEST_LIST_DDS
     tool_participants_dds
     tool_show_topic_dds
     tool_topics_dds
-)
-
-set(TEST_LIST
     one_shot__config
     one_shot__config_fail_file
     one_shot__config_fail_type
@@ -176,28 +173,6 @@ foreach(TEST IN LISTS TEST_LIST)
         PROPERTIES
             ENVIRONMENT "${TEST_ENVIRONMENT}"
         )
-
-endforeach()
-
-foreach(TEST IN LISTS TEST_LIST_DDS)
-    set(TEST_NAME "tool.application.fastddsspy.test.${TEST}")
-    add_test(
-            NAME ${TEST_NAME}
-            COMMAND ${PYTHON_EXECUTABLE}
-                    ${CMAKE_CURRENT_SOURCE_DIR}/test.py
-                    "--exe" $<TARGET_FILE:fastddsspy_tool>
-                    "--test" ${TEST}
-        )
-
-    # Set test properties
-    set_tests_properties(
-        ${TEST_NAME}
-        PROPERTIES
-            ENVIRONMENT "${TEST_ENVIRONMENT}"
-        )
-
-    # TSAN captures and handles raised signals, thus these tests cannot succeed
-    # set_property(TEST ${TEST_NAME} PROPERTY LABELS xtsan)
 
 endforeach()
 

@@ -110,7 +110,7 @@ class TestCase():
                                 stderr=subprocess.PIPE)
 
         # give time to start publishing
-        time.sleep(0.5)
+        time.sleep(2.0)
 
         return proc
 
@@ -131,7 +131,7 @@ class TestCase():
                                 encoding='utf8')
 
         # give time to run tool
-        time.sleep(2.0)
+        # time.sleep(2.0)
 
         if (self.one_shot):
 
@@ -152,7 +152,7 @@ class TestCase():
         proc.stdin.write((self.arguments_spy[0]+'\n'))
         proc.stdin.flush()
         # give time
-        time.sleep(0.5)
+        # time.sleep(0.5)
         output = self.read_output(proc)
         return (output)
 
