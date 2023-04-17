@@ -15,7 +15,7 @@ Param(
     [ValidateScript({Test-Path $_ -PathType Leaf -IsValid })]
     [String]
     # fastddsspy creation binary full qualified path
-    $tool_path
+    $tool_path,
 
     [Parameter(Position=3, Mandatory=$true)]
     [ValidateScript({Test-Path $_ -PathType Leaf -IsValid })]
