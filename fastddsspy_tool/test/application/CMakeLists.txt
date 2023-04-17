@@ -164,7 +164,7 @@ foreach(TEST IN LISTS TEST_LIST)
             NAME ${TEST_NAME}
             COMMAND powershell "-File" ${PWS_LAUNCHER}
                     ${PYTHON_EXECUTABLE}
-                    ${CMAKE_CURRENT_SOURCE_DIR}/tests.py
+                    ${CMAKE_CURRENT_SOURCE_DIR}/test.py
                     $<TARGET_FILE:fastddsspy_tool>
                     ${TEST}
         )
