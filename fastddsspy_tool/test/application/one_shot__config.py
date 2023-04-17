@@ -31,5 +31,5 @@ class TestCase_instance (test_class.TestCase):
 configuration_basic.yaml',
             arguments_dds=[],
             arguments_spy=['--config-path', 'configuration', 'datareaders'],
-            output='\n'
+            output=''
         )

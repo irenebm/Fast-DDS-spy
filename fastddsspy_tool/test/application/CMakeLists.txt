@@ -197,11 +197,9 @@ foreach(TEST IN LISTS TEST_LIST_DDS)
         )
 
     # TSAN captures and handles raised signals, thus these tests cannot succeed
-    add_xtsan_label(${TEST_NAME})
+    set_property(TEST ${TEST_NAME} PROPERTY LABELS xtsan)
 
 endforeach()
-
-
 
 unset(TEST_ENVIRONMENT)
 

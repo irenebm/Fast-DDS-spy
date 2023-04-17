@@ -151,6 +151,8 @@ class TestCase():
         """TODO."""
         proc.stdin.write((self.arguments_spy[0]+'\n'))
         proc.stdin.flush()
+        # give time
+        time.sleep(0.5)
         output = self.read_output(proc)
         return (output)
 
