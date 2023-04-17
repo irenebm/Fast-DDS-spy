@@ -126,10 +126,13 @@ class TestCase():
                                 stderr=subprocess.PIPE,
                                 encoding='utf8')
 
+        # give time to run tool
+        time.sleep(5.0)
+
         if (self.one_shot):
 
             try:
-                output = proc.communicate(timeout=10)[0]
+                output = proc.communicate(timeout=5)[0]
             except subprocess.TimeoutExpired:
                 proc.kill()
                 output = proc.communicate()[0]
@@ -137,8 +140,6 @@ class TestCase():
                 return ('wrong output')
 
         else:
-            # give time to run tool
-            time.sleep(5.0)
             self.read_output(proc)
         return proc
 
