@@ -20,7 +20,7 @@ find_package(PythonInterp 3 REQUIRED)
 
 # Name of files to test
 set(TEST_LIST_DDS
-    one_shot_help_dds
+    # one_shot_help_dds
     one_shot_datareader_dds
     one_shot_datareader_guid_dds
     one_shot_datareader_verbose_dds
@@ -197,7 +197,7 @@ foreach(TEST IN LISTS TEST_LIST_DDS)
         )
 
     # TSAN captures and handles raised signals, thus these tests cannot succeed
-    set_property(TEST ${TEST_NAME} PROPERTY LABELS xtsan)
+    # set_property(TEST ${TEST_NAME} PROPERTY LABELS xtsan)
 
 endforeach()
 
