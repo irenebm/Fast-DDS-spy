@@ -179,6 +179,8 @@ foreach(TEST IN LISTS TEST_LIST)
                         "--test" ${TEST}
             )
 
+    endif()
+
     # Set test properties
     set_tests_properties(
         ${TEST_NAME}
