@@ -20,7 +20,7 @@ find_package(PythonInterp 3 REQUIRED)
 
 # Name of files to test
 set(TEST_LIST
-    # one_shot_help_dds
+    one_shot_help_dds
     one_shot_datareader_dds
     one_shot_datareader_guid_dds
     one_shot_datareader_verbose_dds
@@ -159,13 +159,25 @@ endforeach()
 # populate the tests
 foreach(TEST IN LISTS TEST_LIST)
     set(TEST_NAME "tool.application.fastddsspy.test.${TEST}")
-    add_test(
+    if(WIN32)
+        add_test(
             NAME ${TEST_NAME}
-            COMMAND ${PYTHON_EXECUTABLE}
-                    ${CMAKE_CURRENT_SOURCE_DIR}/test.py
-                    "--exe" $<TARGET_FILE:fastddsspy_tool>
-                    "--test" ${TEST}
+            COMMAND powershell "-File" ${PWS_LAUNCHER}
+                    ${PYTHON_EXECUTABLE}
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tests.py
+                    $<TARGET_FILE:fastddsspy_tool>
+                    ${TEST}
         )
+
+    else()
+
+        add_test(
+                NAME ${TEST_NAME}
+                COMMAND ${PYTHON_EXECUTABLE}
+                        ${CMAKE_CURRENT_SOURCE_DIR}/test.py
+                        "--exe" $<TARGET_FILE:fastddsspy_tool>
+                        "--test" ${TEST}
+            )
 
     # Set test properties
     set_tests_properties(

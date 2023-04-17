@@ -110,7 +110,7 @@ class TestCase():
                                 stderr=subprocess.PIPE)
 
         # give time to start publishing
-        time.sleep(2.0)
+        time.sleep(4.0)
 
         return proc
 
