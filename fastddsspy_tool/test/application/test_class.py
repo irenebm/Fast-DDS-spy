@@ -219,7 +219,7 @@ class TestCase():
             proc.communicate(input='exit\n', timeout=5)[0]
         except subprocess.TimeoutExpired:
             proc.kill()
-            proc.communicate()
+            proc.communicate(timeout=5)
 
     def stop_dds(self, proc):
         """Send a ctrl+c signal to the subprocess."""
@@ -232,7 +232,7 @@ class TestCase():
         elif self.is_windows():
             proc.send_signal(signal.CTRL_C_EVENT)
         # Wait a minimum elapsed time to the signal to be received
-        time.sleep(0.5)
+        time.sleep(0.1)
         try:
             proc.communicate(timeout=5)
         except subprocess.TimeoutExpired:
