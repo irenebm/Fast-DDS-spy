@@ -133,7 +133,7 @@ class TestCase():
                 output = proc.communicate(timeout=5)[0]
             except subprocess.TimeoutExpired:
                 proc.kill()
-                output = proc.communicate()[0]
+                output = proc.communicate(timeout=5)[0]
             if not self.valid_output(output):
                 return ('wrong output')
 
@@ -218,26 +218,11 @@ class TestCase():
         try:
             proc.communicate(input='exit\n', timeout=5)[0]
         except subprocess.TimeoutExpired:
-            proc.kill()
-            proc.communicate(timeout=5)
+            proc.terminate()
 
     def stop_dds(self, proc):
         """Send a ctrl+c signal to the subprocess."""
-        # direct this script to ignore SIGINT in case of windows
-        if self.is_windows():
-            signal.signal(signal.SIGINT, self.signal_handler)
-
-        if self.is_linux():
-                proc.send_signal(signal.SIGINT)
-        elif self.is_windows():
-            proc.send_signal(signal.CTRL_C_EVENT)
-        # Wait a minimum elapsed time to the signal to be received
-        time.sleep(0.1)
-        try:
-            proc.communicate(timeout=5)
-        except subprocess.TimeoutExpired:
-            proc.kill()
-            proc.communicate(timeout=5)
+        proc.terminate()
 
     def is_stop(self, proc):
         """TODO."""
