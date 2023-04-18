@@ -185,11 +185,6 @@ class TestCase():
            ('--HelpCommand' == self.name))):
             return True
         expected_output = self.output_command()
-        print('output')
-        print(output)
-        print('expected output')
-        print(expected_output)
-
         lines_expected_output = expected_output.splitlines()
         lines_output = output.splitlines()
         if expected_output == output:
