@@ -228,10 +228,11 @@ class TestCase():
             signal.signal(signal.SIGINT, self.signal_handler)
 
         if self.is_linux():
-            proc.send_signal(signal.SIGINT)
+                proc.send_signal(signal.SIGINT)
         elif self.is_windows():
             proc.send_signal(signal.CTRL_C_EVENT)
-
+        # Wait a minimum elapsed time to the signal to be received
+        time.sleep(0.2)
         try:
             proc.communicate(timeout=5)
         except subprocess.TimeoutExpired:
