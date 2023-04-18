@@ -220,7 +220,7 @@ class TestCase():
             proc.kill()
 
     def stop_dds(self, proc):
-        """Send a ctrl+c signal to the subprocess."""
+        """TODO."""
         try:
             proc.terminate()
             proc.wait(timeout=5)
