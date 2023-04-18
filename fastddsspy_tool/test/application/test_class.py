@@ -133,7 +133,6 @@ class TestCase():
                 output = proc.communicate(timeout=5)[0]
             except subprocess.TimeoutExpired:
                 proc.kill()
-                output = proc.communicate(timeout=5)[0]
             if not self.valid_output(output):
                 return ('wrong output')
 
@@ -218,11 +217,15 @@ class TestCase():
         try:
             proc.communicate(input='exit\n', timeout=5)[0]
         except subprocess.TimeoutExpired:
-            proc.terminate()
+            proc.kill()
 
     def stop_dds(self, proc):
         """Send a ctrl+c signal to the subprocess."""
-        proc.terminate()
+        try:
+            proc.terminate()
+            proc.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            proc.kill()
 
     def is_stop(self, proc):
         """TODO."""
