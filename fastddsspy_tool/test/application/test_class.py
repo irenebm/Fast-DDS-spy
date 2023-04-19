@@ -209,6 +209,8 @@ class TestCase():
 
     def stop_tool(self, proc):
         """TODO."""
+        # give time
+        time.sleep(0.2)
         try:
             proc.communicate(input='exit\n', timeout=5)[0]
         except subprocess.TimeoutExpired:
@@ -216,6 +218,8 @@ class TestCase():
 
     def stop_dds(self, proc):
         """TODO."""
+        # give time
+        time.sleep(0.2)
         try:
             proc.terminate()
             proc.wait(timeout=5)
