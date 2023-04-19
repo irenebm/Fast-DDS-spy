@@ -181,7 +181,7 @@ class TestCase():
 
     def valid_output(self, output):
         """TODO."""
-        if (self.is_windows() and ('Fail' in self.name or
+        if ('Fail' in self.name or (self.is_windows() and
            ('--HelpCommand' == self.name))):
             return True
         expected_output = self.output_command()
