@@ -143,7 +143,7 @@ class TestCase():
     def send_command_tool(self, proc):
         """TODO."""
         # give time
-        time.sleep(0.2)
+        time.sleep(0.1)
         proc.stdin.write((self.arguments_spy[0]+'\n'))
         proc.stdin.flush()
         output = self.read_output(proc)
