@@ -12,4 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_subdirectory(application)
+"""Tests for the fastddsspy executable."""
+
+import test_class
+
+
+class TestCase_instance (test_class.TestCase):
+    """TODO."""
+
+    def __init__(self):
+        """TODO."""
+        super().__init__(
+            name='DatawriterCommand',
+            one_shot=True,
+            command=[],
+            dds=False,
+            config='',
+            arguments_dds=[],
+            arguments_spy=['datawriter'],
+            output='\n'
+        )

@@ -12,4 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_subdirectory(application)
+"""Tests for the fastddsspy executable."""
+
+import test_class
+
+
+class TestCase_instance (test_class.TestCase):
+    """TODO."""
+
+    def __init__(self):
+        """TODO."""
+        super().__init__(
+            name='ToolParticipantsDDSCommand',
+            one_shot=False,
+            command=[],
+            dds=True,
+            config='',
+            arguments_dds=[],
+            arguments_spy=['participants'],
+            output=""">> \x1b[0m- name: Participant_pub\n\
+\n\
+  guid: 01.0f.d8.74.09.0b.fa.ae.00.00.00.00|0.0.1.c1\n"""
+        )

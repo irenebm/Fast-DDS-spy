@@ -9,7 +9,7 @@
 #
 # JOBS:
 #
-#   - ubuntu
+#   - multiplatform-tests
 #     - [ ubuntu-22.04 | ubuntu-20.04 | windows-2019 | windows-2022 ]
 #     - [ Debug | Release ]
 #     - execute tests in different versions of ubuntu with different build types
@@ -74,7 +74,7 @@ jobs:
 
 
 #####################################################################
-# UBUNTU TEST
+# TEST
 
   multiplatform-tests:
     runs-on: ${{ matrix.os }}
@@ -100,7 +100,7 @@ jobs:
       - name: Sync repository
         uses: actions/checkout@v3
         with:
-          path: src
+          path: ${{ github.workspace }}/src
 
       - name: Download dependencies and install requirements
         uses: ./src/.github/actions/project_dependencies
@@ -111,13 +111,13 @@ jobs:
           secret_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile and run tests
-        uses: jparisu/eProsima-CI/multiplatform/colcon_build_test@main
+        uses: jparisu/eProsima-CI/multiplatform/colcon_build_test@feature/annapurna-workflows
         with:
           packages_names: ${{ env.code_packages_names }}
           cmake_args: -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=${{ matrix.cmake_build_type }}
-          workspace_dependencies: './install'
+          workspace_dependencies: '${{ github.workspace }}/install'
           ctest_args: --label-exclude "xfail"
-          colcon_meta_file: ./src/.github/workflows/configurations/${{ runner.os }}/colcon.meta
+          colcon_meta_file: ${{ github.workspace }}/src/.github/workflows/configurations/${{ runner.os }}/colcon.meta
 
 
 #####################################################################
@@ -130,7 +130,7 @@ jobs:
       - name: Sync repository
         uses: actions/checkout@v3
         with:
-          path: src
+          path: ${{ github.workspace }}/src
 
       - name: Download dependencies and install requirements
         uses: ./src/.github/actions/project_dependencies
@@ -141,10 +141,10 @@ jobs:
           secret_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile and run tests
-        uses: jparisu/eProsima-CI/multiplatform/asan_build_test@main
+        uses: jparisu/eProsima-CI/multiplatform/asan_build_test@feature/annapurna-workflows
         with:
           packages_names: ${{ env.code_packages_names }}
-          workspace_dependencies: './install'
+          workspace_dependencies: '${{ github.workspace }}/install'
 
 
 #####################################################################
@@ -157,7 +157,7 @@ jobs:
       - name: Sync repository
         uses: actions/checkout@v3
         with:
-          path: src
+          path: ${{ github.workspace }}/src
 
       - name: Download dependencies and install requirements
         uses: ./src/.github/actions/project_dependencies
@@ -168,10 +168,10 @@ jobs:
           secret_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile and run tests
-        uses: jparisu/eProsima-CI/multiplatform/tsan_build_test@main
+        uses: jparisu/eProsima-CI/multiplatform/tsan_build_test@feature/annapurna-workflows
         with:
           packages_names: ${{ env.code_packages_names }}
-          workspace_dependencies: './install'
+          workspace_dependencies: '${{ github.workspace }}/install'
 
 
 #####################################################################
@@ -184,7 +184,7 @@ jobs:
       - name: Sync repository
         uses: actions/checkout@v3
         with:
-          path: src
+          path: ${{ github.workspace }}/src
 
       - name: Download dependencies and install requirements
         uses: ./src/.github/actions/project_dependencies
@@ -195,10 +195,10 @@ jobs:
           secret_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile and run tests
-        uses: jparisu/eProsima-CI/multiplatform/clang_build_test@main
+        uses: jparisu/eProsima-CI/multiplatform/clang_build_test@feature/annapurna-workflows
         with:
           packages_names: ${{ env.code_packages_names }}
-          workspace_dependencies: './install'
+          workspace_dependencies: '${{ github.workspace }}/install'
 
 
 #####################################################################
@@ -213,7 +213,7 @@ jobs:
       - name: Sync repository
         uses: actions/checkout@v3
         with:
-          path: src
+          path: ${{ github.workspace }}/src
 
       - name: Download dependencies and install requirements
         uses: ./src/.github/actions/project_dependencies
@@ -224,10 +224,10 @@ jobs:
           secret_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile and run tests
-        uses: jparisu/eProsima-CI/ubuntu/coverage_build_test_upload@main
+        uses: jparisu/eProsima-CI/ubuntu/coverage_build_test_upload@feature/annapurna-workflows
         with:
           packages_names: ${{ env.code_packages_names }}
-          workspace_dependencies: './install'
+          workspace_dependencies: '${{ github.workspace }}/install'
           codecov_token: ${{ secrets.CODECOV_TOKEN }}
           codecov_file_path: ./src/codecov.yml
 
@@ -242,7 +242,7 @@ jobs:
       - name: Sync repository
         uses: actions/checkout@v3
         with:
-          path: src
+          path: ${{ github.workspace }}/src
 
       - name: Download dependencies and install requirements
         uses: ./src/.github/actions/project_dependencies
@@ -253,10 +253,10 @@ jobs:
           secret_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile and run tests
-        uses: jparisu/eProsima-CI/multiplatform/colcon_build_test_flaky@main
+        uses: jparisu/eProsima-CI/multiplatform/colcon_build_test_flaky@feature/annapurna-workflows
         with:
           packages_names: ${{ env.code_packages_names }}
-          workspace_dependencies: './install'
+          workspace_dependencies: '${{ github.workspace }}/install'
 
 
 #####################################################################
@@ -266,7 +266,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Build and test documentation
-        uses: jparisu/eProsima-CI/actions/sphinx_docs@main
+        uses: jparisu/eProsima-CI/ubuntu/sphinx_docs@feature/annapurna-workflows
         with:
           docs_subpackage_name: fastddsspy_docs
 
@@ -279,7 +279,7 @@ jobs:
     steps:
 
       - name: Uncrustify
-        uses: jparisu/eProsima-CI/actions/uncrustify@main
+        uses: jparisu/eProsima-CI/ubuntu-22.04/uncrustify@feature/annapurna-workflows
 
 
 #####################################################################
@@ -290,4 +290,4 @@ jobs:
     steps:
 
       - name: Python Linter
-        uses: jparisu/eProsima-CI/actions/python_linter@main
+        uses: jparisu/eProsima-CI/ubuntu/python_linter@feature/annapurna-workflows

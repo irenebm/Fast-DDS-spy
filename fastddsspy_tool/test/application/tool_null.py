@@ -12,4 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_subdirectory(application)
+"""Tests for the fastddsspy executable."""
+
+import test_class
+
+
+class TestCase_instance (test_class.TestCase):
+    """TODO."""
+
+    def __init__(self):
+        """TODO."""
+        super().__init__(
+            name='ToolNull',
+            one_shot=False,
+            command=[],
+            dds=False,
+            config='',
+            arguments_dds=[],
+            arguments_spy=['null'],
+            output=""">> \x1b[0m\x1b[1;31m<null> is not a known command. \
+Use <help> command to see valid commands and arguments.\x1b[0m\n\n\n\n"""
+        )

@@ -12,4 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_subdirectory(application)
+"""Tests for the fastddsspy executable."""
+
+import test_class
+
+
+class TestCase_instance (test_class.TestCase):
+    """TODO."""
+
+    def __init__(self):
+        """TODO."""
+        super().__init__(
+            name='TopicsDDSCommand',
+            one_shot=True,
+            command=[],
+            dds=True,
+            config='',
+            arguments_dds=[],
+            arguments_spy=['topics'],
+            output="""- name: HelloWorldTopic\n\
+  type: HelloWorld\n\
+  datawriters: 1\n\
+  datareaders: 0\n\
+  rate: 10 Hz\n"""
+        )
